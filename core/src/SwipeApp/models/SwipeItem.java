@@ -1,4 +1,4 @@
-package lib.models;
+package SwipeApp.models;
 
 public class SwipeItem {
 

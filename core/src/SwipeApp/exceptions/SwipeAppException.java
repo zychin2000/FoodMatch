@@ -1,4 +1,4 @@
-package lib.exceptions;
+package SwipeApp.exceptions;
 
 public class SwipeAppException extends RuntimeException{
 

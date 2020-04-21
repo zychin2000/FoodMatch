@@ -1,4 +1,4 @@
-package lib.models;
+package SwipeApp.models;
 
 import java.util.Date;
 

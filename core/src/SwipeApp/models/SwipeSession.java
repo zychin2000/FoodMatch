@@ -1,8 +1,9 @@
-package lib.models;
+package SwipeApp.models;
 
-import lib.exceptions.SwipeAppException;
+import SwipeApp.exceptions.SwipeAppException;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 public class SwipeSession extends Event {
@@ -13,14 +14,16 @@ public class SwipeSession extends Event {
     Set<SwipeItem> initiatorAcceptedItems;
     Set<SwipeItem> receiverAcceptedItems;
     Set<SwipeItem> bothAcceptedItems;
+    Set<SwipeItem> rejectedItems;
+
+    LinkedList<SwipeItem> initiatorQueue;
+    LinkedList<SwipeItem> recevierQueue;
 
     private boolean matchFound;
 
-
-
     private boolean open;
 
-    public SwipeSession(ApplicationUser initiator, ApplicationUser receiver) {
+    SwipeSession(ApplicationUser initiator, ApplicationUser receiver) {
         this.initiator = initiator;
         this.receiver = receiver;
         initiatorAcceptedItems = new HashSet<>();
@@ -31,7 +34,7 @@ public class SwipeSession extends Event {
     /*
     Helper method. Adds an item to a user's accepted item. Returns true if added, false if there's a duplicate
      */
-    private boolean addItem(ApplicationUser user, SwipeItem item){
+    private boolean addItemUtil(ApplicationUser user, SwipeItem item){
         if(user.equals(initiator))
             return initiatorAcceptedItems.add(item);
         else if(user.equals(receiver))
@@ -44,8 +47,8 @@ public class SwipeSession extends Event {
     Adds an item to a user's accepted item. If a match is found with the added object, return true, if not return false.
      */
 
-    public boolean addItemAndCheck(ApplicationUser user, SwipeItem item){
-        addItem(user,item);
+    public boolean addAcceptedItem(ApplicationUser user, SwipeItem item){
+        addItemUtil(user,item);
 
         if(user.equals(initiator))
             if(receiverAcceptedItems.contains(item)){
@@ -69,5 +72,9 @@ public class SwipeSession extends Event {
 
     public boolean isOpen() {
         return open;
+    }
+
+    public void addRejectedItem(SwipeItem item){
+        rejectedItems.add(item);
     }
 }

@@ -1,4 +1,4 @@
-package lib.models;
+package SwipeApp.models;
 
 public class ApplicationUser {
     String name;
@@ -10,7 +10,7 @@ public class ApplicationUser {
     }
 
     public boolean addToSession(SwipeItem item){
-        return currentSession.addItemAndCheck(this,item);
+        return currentSession.addAcceptedItem(this,item);
     }
 
     @Override
